@@ -1,0 +1,89 @@
+/*
+ * C CODE GENERATION FOR ARM CORTEX M4 
+ * BY 3rd YEAR CSE STUDENTS
+ * CSE372
+ */
+ 
+#include "RST.h"
+#include "INPUT.h"
+#include "Subsystem.h"
+#include "Subsystem_private.h"
+
+/* Block states (auto storage) */
+DW_Subsystem_T Subsystem_DW;
+
+/* External inputs (root inport signals with auto storage) */
+ExtU_Subsystem_T Subsystem_U;
+
+/* External outputs (root outports fed by signals with auto storage) */
+ExtY_Subsystem_T Subsystem_Y;
+
+/* Real-time model */
+RT_MODEL_Subsystem_T Subsystem_M_;
+RT_MODEL_Subsystem_T *const Subsystem_M = &Subsystem_M_;
+
+/* Model step function */
+void Subsystem_step(void)
+{
+  real_T rtb_Sum1;
+
+  /* DiscreteFilter: '<S1>/1//S(z)' incorporates:
+   *  DiscreteFilter: '<S1>/R(z)'
+   *  DiscreteFilter: '<S1>/T(z)'
+   *  Inport: '<Root>/In1'
+   *  Inport: '<Root>/In2'
+   *  Sum: '<S1>/Sum1'
+   */
+  rtb_Sum1 = REPLACE1
+
+  /* Outport: '<Root>/Out1' incorporates:
+   *  DiscreteFilter: '<S1>/1//S(z)'
+   */
+  Subsystem_Y.Out1 = rtb_Sum1;
+
+  /* Update for DiscreteFilter: '<S1>/T(z)' incorporates:
+   *  Inport: '<Root>/In1'
+   */
+  REPLACE2
+
+  /* Update for DiscreteFilter: '<S1>/R(z)' incorporates:
+   *  Inport: '<Root>/In2'
+   */
+  REPLACE3
+
+  /* Update for DiscreteFilter: '<S1>/1//S(z)' */
+  REPLACE4
+  
+}
+
+/* Model initialize function */
+void Subsystem_initialize(void)
+{
+  /* Registration code */
+
+  /* initialize error status */
+  rtmSetErrorStatus(Subsystem_M, (NULL));
+
+  /* states (dwork) */
+  (void) memset((void *)&Subsystem_DW, 0,
+                sizeof(DW_Subsystem_T));
+
+  /* external inputs */
+  (void) memset((void *)&Subsystem_U, 0,
+                sizeof(ExtU_Subsystem_T));
+
+  /* external outputs */
+  Subsystem_Y.Out1 = 0.0;
+}
+
+/* Model terminate function */
+void Subsystem_terminate(void)
+{
+  /* (no terminate code required) */
+}
+
+/*
+ * File trailer for generated code.
+ *
+ * [EOF]
+ */

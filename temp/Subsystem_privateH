@@ -1,0 +1,16 @@
+/*
+ * C CODE GENERATION FOR ARM CORTEX M4 
+ * BY 3rd YEAR CSE STUDENTS
+ * CSE372
+ */
+
+#ifndef RTW_HEADER_Subsystem_private_h_
+#define RTW_HEADER_Subsystem_private_h_
+#include "rtwtypes.h"
+#endif                                 /* RTW_HEADER_Subsystem_private_h_ */
+
+/*
+ * File trailer for generated code.
+ *
+ * [EOF]
+ */
